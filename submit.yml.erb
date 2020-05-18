@@ -1,0 +1,13 @@
+<%-
+ppn = num_cores.blank? ? 28 : num_cores.to_i
+if node_type == ':hugemem'
+  ppn = 48
+end
+%>
+---
+batch_connect:
+  template: "basic"
+script:
+  native:
+    resources:
+      nodes: "<%= num_of_nodes.blank? ? "1" : num_of_nodes.to_i %>:ppn=<%= ppn %>"
